@@ -2,6 +2,18 @@
 
 ### Request Access Token [POST]
 
++ Request (application/json)
+    + `grant_type` data type string (mandatory).
+    + `client_id` data type string (mandatory).
+    + `client_secret` data type string (mandatory).
+
+    + Body
+        {
+            "grant_type": "access_token",
+            "client_id": "1M6i9GcFqCBbYY0087UD",
+            "client_secret": "btg85ip8d3b0vd7nc0dg"
+        }
+
 + Response 200 (application/json)
         {
             "success": true,
@@ -45,6 +57,20 @@
         }
 
 ### Refresh Token [POST]
+
++ Request (application/json)
+    + `grant_type` data type string (mandatory).
+    + `client_id` data type string (mandatory).
+    + `client_secret` data type string (mandatory).
+    + `refresh_token` data type string (mandatory if grant_type == refresh_token).
+
+    + Body
+        {
+            "grant_type": "refresh_token",
+            "client_id": "1M6i9GcFqCBbYY0087UD",
+            "client_secret": "btg85ip8d3b0vd7nc0dg",
+            "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.XEBWLxYAJTmI8rxLG7JJohNDV6ckM1AKrP3_RpraRj3abGkfOCDXTVfc9WthvifqK9HTJ28dY1BScBUtQroE5BBV1B6GGg3rw7aQQCSs_iMvbj0TUyUk5oCVFM3Xe9zz0v3pI7mbbi7HA7c6g9-8Nc036B6mb8gWyltPKxs0RZQ.RGwkqhf_KcW0uDhh.PvPVLHUeyqTMGpAZ6GODXXDEnRVeTS2Thfi8z4RDkHzccpgU7IIxuC80g1N_dvKuzETrhHjM7Vm_IMr9IQ0s_Qzm_WiS1LcLjTD9D1SwbQmjfqDavHEcxy2HupS5IQtR-EMjISh5S_esW8e7-nQSQmp-NjpLAO-QGrW80OBdJq7LSBBI10B8ZNratuRlDvaqjfLKHNaLyutgfUjkuqJujWHc4v0KNDTrBbfueNt__NmhXeVXLYRhqDjKviZ_vaVYGk8BqpXi26vv9vWVdKaAQfMJrwmHBaI0duZ3u5BqZBdJFtZR2WYpUzyj_Qp3bJ7TgZYJft650nOsKDqnXwjBmGA8Y17wbDTHNKnoCsO3iGrOf0yn1myS8zya5GOkusDqKkAT_DIB7sFzyisK6zHvVf6RZFZK3uI0jMeSlSlJmTjmVsKMmhFiWLNCF1nl5smBEFImIvE32ffm8IDMENsRI9os9nVQ.YUrmVX_22yH003QfJuIVTg"
+        }
 
 + Response 200 (application/json)
         {

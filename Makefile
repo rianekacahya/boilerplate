@@ -9,4 +9,4 @@ build:
 
 apiary:
 	@rm -f ./apiary.apib
-	@awk '{print}' $(APIARY)/*.apib > $(APIARY)/index.apib
+	@awk '{print}' $(APIARY)/*.apib > apiary.apib

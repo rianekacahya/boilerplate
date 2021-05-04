@@ -31,7 +31,7 @@ func (t *rest) token(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := render.Bind(r, req); err != nil {
-		response.Nay(w, r, goerror.Wrap(err, goerror.ErrCodeValidation, "please check your request body"))
+		response.Nay(w, r, goerror.Wrap(err, goerror.ErrCodeFormatting, "please check your request body"))
 		return
 	}
 

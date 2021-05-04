@@ -22,9 +22,8 @@ Specifically handling multi merchant apps initialisations and settings
 | Endpoint                     | Method | Notes                                                                                                                                                                              |
 |------------------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `/v1/oauth2/token`           | POST   | Generate new request token                                                                                                                                                         |
-| `/v1/auth/login`             | POST   | Sign-in into application                                                                                                                                                           |
 
-Details that includes request & response, can be referred to Postman documentation [here](https://documenter.getpostman.com/view/6817990/SzzdDgQ6)
+Details that includes request & response, can be referred to Apiary documentation [here](https://app.apiary.io/boilerplate10)
 
 ## <a name="command-parameters"></a>Command Parameters
 Example using the command

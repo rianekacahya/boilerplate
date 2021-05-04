@@ -7,5 +7,10 @@ import (
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	// bootstrap dependencies
+	bootstrap.Dependencies()
+
+	// bootstrap command
 	bootstrap.Execute()
 }

@@ -1,0 +1,30 @@
+debug: false
+rest:
+  port: 8080
+  read_timeout: 5
+  write_timeout: 5
+  idle_timeout: 5
+postgres:
+  read:
+    dsn: "postgres://root:basic@127.0.0.1:5432/products?sslmode=disable"
+    max_open: 100
+    max_idle: 50
+    timeout: 3600
+  write:
+    dsn: "postgres://root:basic@127.0.0.1:5432/products?sslmode=disable"
+    max_open: 100
+    max_idle: 50
+    timeout: 3600
+redis:
+  master:
+    host: "localhost:6379"
+    password: "YmZdp09GRpoyTmnBOg"
+jwt:
+  key: "files/jwt/rsa"
+  issuer: "oauth2"
+  access_token_expire_in: 1h
+  refresh_token_expire_in: 168h
+  leeway: 5s
+session:
+  basic_expire_in: 12h
+  administration_expire_in: 8h

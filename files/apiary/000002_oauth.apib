@@ -2,113 +2,113 @@
 
 ### Request Access Token [POST]
 
-+ Request (application/json)
-    + `grant_type` data type string (mandatory).
-    + `client_id` data type string (mandatory).
-    + `client_secret` data type string (mandatory).
-    + Body
+    + Request (application/json)
+        + `grant_type` data type string (mandatory).
+        + `client_id` data type string (mandatory).
+        + `client_secret` data type string (mandatory).
+        + Body
+            {
+                "grant_type": "access_token",
+                "client_id": "1M6i9GcFqCBbYY0087UD",
+                "client_secret": "btg85ip8d3b0vd7nc0dg"
+            }
+
+    + Response 200 (application/json)
         {
-            "grant_type": "access_token",
-            "client_id": "1M6i9GcFqCBbYY0087UD",
-            "client_secret": "btg85ip8d3b0vd7nc0dg"
-        }
-
-+ Response 200 (application/json)
-    {
-        "success": true,
-        "data": {
-            "token_type": "JWT",
-            "expires_in": "2021-05-04T15:47:16.840895+07:00",
-            "access_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.ejXSXZsoaS26aSFLbUfhdleAX_glbVkBsOFC2HUgSqWs1cN3KgclWgzlWhTj4E83nE0npDUkk0f-x-yPB2pH12s_J_92xb-hfQlaPpdklva5IsdwUTHkcpAA3fVerySqLCUxrr6Ri4D-NQyUTgIP9LNBdbVP9J1VwhsR05F4vqU.okdmjQGdwywNpcqi.fCrakv6OZLgBujqaa_Px-XWq0NkewTSju9rI3thtSW9oKYAlTH3uaqedtmbV1Q3wuy1djPpXaER8Yi84_VtxeXmnnGML-AQWxeg5QwfBGzQZiS8Y5DzEnFGhlOonu5W3CMlwuscIJV7sBoJj3Y9UKOqv8nTFe-IPJwfgUquLgrFgFNprCd69d-DXc2frSLt1gZVZU8_fP4jQM4Ract4X0h38KyJebRdaakdwSS9n-RLBF2zsDa4JxM8KvEMGMiXdUAC9hMaG3LR0pYt6mzQVhkKVA7jL_WPbRkvDKokfu1jPGxZqE0fFh_tGJLqmNiZ5cUYgMqmQPSG2WUbhFMcPUS1QFzvh3gCAsxZ95LMRJ3bfyhG6VjYP61XZyKz2YnAIjutGQbyuI5JMmN7j3GFN3tJsAsVMmgMXRIGM5XVjlNTkbW6C9d41utQA_OMumg4UB3YscbBhc2PQe0IGSL6safxf0a2EtGl-Zb16Q66qkS1kKmPFD8KmshjLawiZ64v6HcuCZV7uCa0aEmj8Bw7-uUC0qpatyM_3V2uye9PY5OUA8L0.xjL67n-vr8m969htEh0byw",
-            "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.Ack5qDUYmZRq2aUwGK15SiLQADvHameZ-zmBLQuc1ZAYpoKp350keHnk9xqMrOKhjNYQHcJ0h-fsjGIAQN_ASUQGJ3uDaVlibJGU53QdrbVDqFOUerqdCKQQUmqz76oF3ExnRUoMf0l27gss-SukGyfDwihZvGdiTtJRM-xeT4E.K6YZQhcEPjQt74hm.pd4vt8MitO_I01CKXhBrJ0g5fQbKwNl0vyBoRBdCABRxDTVX0rDR6lEcZ_QOsbGso_dysLO_ByEZgUJu7u4wy0xGw3A0VYY_dDGDXraR7jzmVGgOXUItnqIJP8OzgCPirRTqt10LN9z2uJdlwnVNoiAzdnVtsdWk-2kyrUlA7CjRVBYbXdcdfnq0ZZALk9hgp3U1yeHL9ZqrXK1Iy9HIWrfD5kIrpR9DJ34jmEKurlpUaUBHSVt9yBn1w-BIfIAlY8MRoW9QQyU8Q2zTnNkdQDCl0hgVhAzKvzbPlprsN7wkBj-1pwiAfsoraK_Hvxp29-_7tp154iT0Yi49uOUFUkOQ_Lmxj1QtAwirbJ-UZzJLzau_NofgIJ1y2EkEwm-wqg_krD6gCKwEMkzMybigmbt5CrkY2bDT7cdY52yR3wmQV13hQaP9mj83I456iAAAlHEAVgS-_RVwOVIfNXoBO4oy3f06.J9zViSyO1U_NHNZiPws5Ag"
-        }
-    }
-
-+ Response 400 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_FORMATTING",
-            "message": "please check your request body"
-        }
-    }
-
-+ Response 400 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_VALIDATION",
-            "message": {
-                "client_id": "cannot be blank",
-                "client_secret": "cannot be blank",
-                "grant_type": "cannot be blank"
+            "success": true,
+            "data": {
+                "token_type": "JWT",
+                "expires_in": "2021-05-04T15:47:16.840895+07:00",
+                "access_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.ejXSXZsoaS26aSFLbUfhdleAX_glbVkBsOFC2HUgSqWs1cN3KgclWgzlWhTj4E83nE0npDUkk0f-x-yPB2pH12s_J_92xb-hfQlaPpdklva5IsdwUTHkcpAA3fVerySqLCUxrr6Ri4D-NQyUTgIP9LNBdbVP9J1VwhsR05F4vqU.okdmjQGdwywNpcqi.fCrakv6OZLgBujqaa_Px-XWq0NkewTSju9rI3thtSW9oKYAlTH3uaqedtmbV1Q3wuy1djPpXaER8Yi84_VtxeXmnnGML-AQWxeg5QwfBGzQZiS8Y5DzEnFGhlOonu5W3CMlwuscIJV7sBoJj3Y9UKOqv8nTFe-IPJwfgUquLgrFgFNprCd69d-DXc2frSLt1gZVZU8_fP4jQM4Ract4X0h38KyJebRdaakdwSS9n-RLBF2zsDa4JxM8KvEMGMiXdUAC9hMaG3LR0pYt6mzQVhkKVA7jL_WPbRkvDKokfu1jPGxZqE0fFh_tGJLqmNiZ5cUYgMqmQPSG2WUbhFMcPUS1QFzvh3gCAsxZ95LMRJ3bfyhG6VjYP61XZyKz2YnAIjutGQbyuI5JMmN7j3GFN3tJsAsVMmgMXRIGM5XVjlNTkbW6C9d41utQA_OMumg4UB3YscbBhc2PQe0IGSL6safxf0a2EtGl-Zb16Q66qkS1kKmPFD8KmshjLawiZ64v6HcuCZV7uCa0aEmj8Bw7-uUC0qpatyM_3V2uye9PY5OUA8L0.xjL67n-vr8m969htEh0byw",
+                "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.Ack5qDUYmZRq2aUwGK15SiLQADvHameZ-zmBLQuc1ZAYpoKp350keHnk9xqMrOKhjNYQHcJ0h-fsjGIAQN_ASUQGJ3uDaVlibJGU53QdrbVDqFOUerqdCKQQUmqz76oF3ExnRUoMf0l27gss-SukGyfDwihZvGdiTtJRM-xeT4E.K6YZQhcEPjQt74hm.pd4vt8MitO_I01CKXhBrJ0g5fQbKwNl0vyBoRBdCABRxDTVX0rDR6lEcZ_QOsbGso_dysLO_ByEZgUJu7u4wy0xGw3A0VYY_dDGDXraR7jzmVGgOXUItnqIJP8OzgCPirRTqt10LN9z2uJdlwnVNoiAzdnVtsdWk-2kyrUlA7CjRVBYbXdcdfnq0ZZALk9hgp3U1yeHL9ZqrXK1Iy9HIWrfD5kIrpR9DJ34jmEKurlpUaUBHSVt9yBn1w-BIfIAlY8MRoW9QQyU8Q2zTnNkdQDCl0hgVhAzKvzbPlprsN7wkBj-1pwiAfsoraK_Hvxp29-_7tp154iT0Yi49uOUFUkOQ_Lmxj1QtAwirbJ-UZzJLzau_NofgIJ1y2EkEwm-wqg_krD6gCKwEMkzMybigmbt5CrkY2bDT7cdY52yR3wmQV13hQaP9mj83I456iAAAlHEAVgS-_RVwOVIfNXoBO4oy3f06.J9zViSyO1U_NHNZiPws5Ag"
             }
         }
-    }
 
-+ Response 401 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_UNAUTHORIZED",
-            "message": "client id and client secret not match"
-        }
-    }
-
-### Refresh Token [POST]
-
-+ Request (application/json)
-    + `grant_type` data type string (mandatory).
-    + `client_id` data type string (mandatory).
-    + `client_secret` data type string (mandatory).
-    + `refresh_token` data type string (mandatory if grant_type == refresh_token).
-    + Body
+    + Response 400 (application/json)
         {
-            "grant_type": "refresh_token",
-            "client_id": "1M6i9GcFqCBbYY0087UD",
-            "client_secret": "btg85ip8d3b0vd7nc0dg",
-            "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.XEBWLxYAJTmI8rxLG7JJohNDV6ckM1AKrP3_RpraRj3abGkfOCDXTVfc9WthvifqK9HTJ28dY1BScBUtQroE5BBV1B6GGg3rw7aQQCSs_iMvbj0TUyUk5oCVFM3Xe9zz0v3pI7mbbi7HA7c6g9-8Nc036B6mb8gWyltPKxs0RZQ.RGwkqhf_KcW0uDhh.PvPVLHUeyqTMGpAZ6GODXXDEnRVeTS2Thfi8z4RDkHzccpgU7IIxuC80g1N_dvKuzETrhHjM7Vm_IMr9IQ0s_Qzm_WiS1LcLjTD9D1SwbQmjfqDavHEcxy2HupS5IQtR-EMjISh5S_esW8e7-nQSQmp-NjpLAO-QGrW80OBdJq7LSBBI10B8ZNratuRlDvaqjfLKHNaLyutgfUjkuqJujWHc4v0KNDTrBbfueNt__NmhXeVXLYRhqDjKviZ_vaVYGk8BqpXi26vv9vWVdKaAQfMJrwmHBaI0duZ3u5BqZBdJFtZR2WYpUzyj_Qp3bJ7TgZYJft650nOsKDqnXwjBmGA8Y17wbDTHNKnoCsO3iGrOf0yn1myS8zya5GOkusDqKkAT_DIB7sFzyisK6zHvVf6RZFZK3uI0jMeSlSlJmTjmVsKMmhFiWLNCF1nl5smBEFImIvE32ffm8IDMENsRI9os9nVQ.YUrmVX_22yH003QfJuIVTg"
-        }
-
-+ Response 200 (application/json)
-    {
-        "success": true,
-        "data": {
-            "token_type": "JWT",
-            "expires_in": "2021-05-04T15:50:10.916153+07:00",
-            "access_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.IL8mFiHoulVHRVJ9k7cfAxkBWIMm1asNwXBvxNrB5LVuHn72PR14mpftwjIYIynz3fE8QW-iiWN7s6-QWPTAg4g4ZDmDI-ia7DPiI9c4T7deQRWpbjJ6LRH_GHoUQCPDo5Rr1Hcwf2yHfEKH5bnz7dCI-bIsCCYaH0Q-kgISe7c.R_tj6lHb-HzEzV-J.bT8JHTX0FJCjpKj7dSeL5QmA63o7qnsO3cfsn0Pp_ZuKGDQOnYSEtDBRpu95jCrsizx3D9WNsteHhpS0fAR2ur-REgYIQxi1WmTiL63L1GArKfGiyyAkVKudEgWy9eQfs_wYEQ0L0M66ueDDg81jYv4jbfBpiNo6hGtgenhXn3qZofjz7AKI4n3ga8M1q9JxUsAEO1UarrbHSzl_FBvNO__y27ZdriGp8VHkABQpJNQ1FXbSSll9fyGukMx-fQxl0Q3pLu1RGBCeZWTgdt2vFXRfV21hYISbHsKRQSbWYZmkKHBT_TxNAFYjxj-FN0aU3_PoST385XqSa4Oea_PI5DmtDwom2pixZqsRES3SjWDWexN3I5t3Zq1AvbvOEGa5qc7irW6Bp15r7y_jdQ_EGm9pLh-LFU4tx-ahZbIxLANLEt1WCyMMNzIpN3fmNdM0GSpFj2gv8eJU_60jjKer64DpF9qG_ZJfL_Jfp690bOoyUCEwEHI2AP91kP0f3j1sZpQFiH-SVlfu9tKiiR7reiJJkG8ewHdSspRrTJmveJCcRK0.5gHMSSubQe12gB0c3Qyl3w",
-            "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.c9fBkvXeCZAGmFu7aTqQ2ZYkz4gR8TB1SC0dYYyAsFok-TnWfKRIyKQCWh9mgbZRyJN_orYyjQi6f30IhPU_gTunZTYG1FlUC20pwN4PJLAZMo4zLdB1DymVDa922_Wf2d6yJW46wtAFxsnALiK8pU67wmQzZx_FhXJzJTCHvm0.9bd0DDweTKvaqhH7.Pa5383uNY8JS4ECJsZxexBgt-c1d6CBQdLw46EGkejIY-qBBL-IVB7JVIegtpdpTZ9tx57B-E515Br8WDsV1WVS6VNLiwNncLxuEdxdagYVPM43VEUToCtvkEy1FSFpohfK563BWc4fuFFRvetCO7UUCDVOEu7Uv9uvS7UEkhYzFGmQgYs8kK6_-j3HQDlCiJpkuo8_dzEiiO7HLVECYxc4lcI_L0tq6PwpUM_GH6p5H6YtSXFDcTO_YuGktneeGXXKYNT8H8MgnUNkNWg6n_w6f-k9yPflyk5CYbrOlUIsd6FK7bm4Y8mULxeAYw62mx_VHAQs8f4j61kByV8mzp-b5t-nwegl2KYcIMBibAJrrrnRBvdAjtWuxxXawEmsXz-uxPzvkrSbZSDNk4FCeg-sLhpycdt8jtYGRmOmij2RKBOXeuYmTHXQ9EY5MVd8TFDMBKR-uOnps_PstA66JBJGshm2n.gLlgZVMyg_CllYRJGJySOQ"
-        }
-    }
-
-+ Response 400 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_FORMATTING",
-            "message": "please check your request body"
-        }
-    }
-
-+ Response 400 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_VALIDATION",
-            "message": {
-                "client_id": "cannot be blank",
-                "client_secret": "cannot be blank",
-                "grant_type": "cannot be blank",
-                "refresh_token": "cannot be blank"
+            "success": false,
+            "error": {
+                "code": "ERR_FORMATTING",
+                "message": "please check your request body"
             }
         }
-    }
 
-+ Response 401 (application/json)
-    {
-        "success": false,
-        "error": {
-            "code": "ERR_UNAUTHORIZED",
-            "message": "client id and client secret not match"
+    + Response 400 (application/json)
+        {
+            "success": false,
+            "error": {
+                "code": "ERR_VALIDATION",
+                "message": {
+                    "client_id": "cannot be blank",
+                    "client_secret": "cannot be blank",
+                    "grant_type": "cannot be blank"
+                }
+            }
         }
-    }
+
+    + Response 401 (application/json)
+        {
+            "success": false,
+            "error": {
+                "code": "ERR_UNAUTHORIZED",
+                "message": "client id and client secret not match"
+            }
+        }
+
+    ### Refresh Token [POST]
+
+    + Request (application/json)
+        + `grant_type` data type string (mandatory).
+        + `client_id` data type string (mandatory).
+        + `client_secret` data type string (mandatory).
+        + `refresh_token` data type string (mandatory if grant_type == refresh_token).
+        + Body
+            {
+                "grant_type": "refresh_token",
+                "client_id": "1M6i9GcFqCBbYY0087UD",
+                "client_secret": "btg85ip8d3b0vd7nc0dg",
+                "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.XEBWLxYAJTmI8rxLG7JJohNDV6ckM1AKrP3_RpraRj3abGkfOCDXTVfc9WthvifqK9HTJ28dY1BScBUtQroE5BBV1B6GGg3rw7aQQCSs_iMvbj0TUyUk5oCVFM3Xe9zz0v3pI7mbbi7HA7c6g9-8Nc036B6mb8gWyltPKxs0RZQ.RGwkqhf_KcW0uDhh.PvPVLHUeyqTMGpAZ6GODXXDEnRVeTS2Thfi8z4RDkHzccpgU7IIxuC80g1N_dvKuzETrhHjM7Vm_IMr9IQ0s_Qzm_WiS1LcLjTD9D1SwbQmjfqDavHEcxy2HupS5IQtR-EMjISh5S_esW8e7-nQSQmp-NjpLAO-QGrW80OBdJq7LSBBI10B8ZNratuRlDvaqjfLKHNaLyutgfUjkuqJujWHc4v0KNDTrBbfueNt__NmhXeVXLYRhqDjKviZ_vaVYGk8BqpXi26vv9vWVdKaAQfMJrwmHBaI0duZ3u5BqZBdJFtZR2WYpUzyj_Qp3bJ7TgZYJft650nOsKDqnXwjBmGA8Y17wbDTHNKnoCsO3iGrOf0yn1myS8zya5GOkusDqKkAT_DIB7sFzyisK6zHvVf6RZFZK3uI0jMeSlSlJmTjmVsKMmhFiWLNCF1nl5smBEFImIvE32ffm8IDMENsRI9os9nVQ.YUrmVX_22yH003QfJuIVTg"
+            }
+
+    + Response 200 (application/json)
+        {
+            "success": true,
+            "data": {
+                "token_type": "JWT",
+                "expires_in": "2021-05-04T15:50:10.916153+07:00",
+                "access_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.IL8mFiHoulVHRVJ9k7cfAxkBWIMm1asNwXBvxNrB5LVuHn72PR14mpftwjIYIynz3fE8QW-iiWN7s6-QWPTAg4g4ZDmDI-ia7DPiI9c4T7deQRWpbjJ6LRH_GHoUQCPDo5Rr1Hcwf2yHfEKH5bnz7dCI-bIsCCYaH0Q-kgISe7c.R_tj6lHb-HzEzV-J.bT8JHTX0FJCjpKj7dSeL5QmA63o7qnsO3cfsn0Pp_ZuKGDQOnYSEtDBRpu95jCrsizx3D9WNsteHhpS0fAR2ur-REgYIQxi1WmTiL63L1GArKfGiyyAkVKudEgWy9eQfs_wYEQ0L0M66ueDDg81jYv4jbfBpiNo6hGtgenhXn3qZofjz7AKI4n3ga8M1q9JxUsAEO1UarrbHSzl_FBvNO__y27ZdriGp8VHkABQpJNQ1FXbSSll9fyGukMx-fQxl0Q3pLu1RGBCeZWTgdt2vFXRfV21hYISbHsKRQSbWYZmkKHBT_TxNAFYjxj-FN0aU3_PoST385XqSa4Oea_PI5DmtDwom2pixZqsRES3SjWDWexN3I5t3Zq1AvbvOEGa5qc7irW6Bp15r7y_jdQ_EGm9pLh-LFU4tx-ahZbIxLANLEt1WCyMMNzIpN3fmNdM0GSpFj2gv8eJU_60jjKer64DpF9qG_ZJfL_Jfp690bOoyUCEwEHI2AP91kP0f3j1sZpQFiH-SVlfu9tKiiR7reiJJkG8ewHdSspRrTJmveJCcRK0.5gHMSSubQe12gB0c3Qyl3w",
+                "refresh_token": "eyJhbGciOiJSU0EtT0FFUCIsImN0eSI6IkpXVCIsImVuYyI6IkExMjhHQ00ifQ.c9fBkvXeCZAGmFu7aTqQ2ZYkz4gR8TB1SC0dYYyAsFok-TnWfKRIyKQCWh9mgbZRyJN_orYyjQi6f30IhPU_gTunZTYG1FlUC20pwN4PJLAZMo4zLdB1DymVDa922_Wf2d6yJW46wtAFxsnALiK8pU67wmQzZx_FhXJzJTCHvm0.9bd0DDweTKvaqhH7.Pa5383uNY8JS4ECJsZxexBgt-c1d6CBQdLw46EGkejIY-qBBL-IVB7JVIegtpdpTZ9tx57B-E515Br8WDsV1WVS6VNLiwNncLxuEdxdagYVPM43VEUToCtvkEy1FSFpohfK563BWc4fuFFRvetCO7UUCDVOEu7Uv9uvS7UEkhYzFGmQgYs8kK6_-j3HQDlCiJpkuo8_dzEiiO7HLVECYxc4lcI_L0tq6PwpUM_GH6p5H6YtSXFDcTO_YuGktneeGXXKYNT8H8MgnUNkNWg6n_w6f-k9yPflyk5CYbrOlUIsd6FK7bm4Y8mULxeAYw62mx_VHAQs8f4j61kByV8mzp-b5t-nwegl2KYcIMBibAJrrrnRBvdAjtWuxxXawEmsXz-uxPzvkrSbZSDNk4FCeg-sLhpycdt8jtYGRmOmij2RKBOXeuYmTHXQ9EY5MVd8TFDMBKR-uOnps_PstA66JBJGshm2n.gLlgZVMyg_CllYRJGJySOQ"
+            }
+        }
+
+    + Response 400 (application/json)
+        {
+            "success": false,
+            "error": {
+                "code": "ERR_FORMATTING",
+                "message": "please check your request body"
+            }
+        }
+
+    + Response 400 (application/json)
+        {
+            "success": false,
+            "error": {
+                "code": "ERR_VALIDATION",
+                "message": {
+                    "client_id": "cannot be blank",
+                    "client_secret": "cannot be blank",
+                    "grant_type": "cannot be blank",
+                    "refresh_token": "cannot be blank"
+                }
+            }
+        }
+
+    + Response 401 (application/json)
+        {
+            "success": false,
+            "error": {
+                "code": "ERR_UNAUTHORIZED",
+                "message": "client id and client secret not match"
+            }
+        }

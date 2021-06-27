@@ -2,26 +2,25 @@ package bootstrap
 
 import (
 	"context"
-	"crypto/rsa"
-	"database/sql"
-	"github.com/go-redis/redis/v8"
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
 	"github.com/rianekacahya/boilerplate/pkg/goconf"
 	"github.com/rianekacahya/boilerplate/pkg/gologger"
-	"github.com/rianekacahya/boilerplate/pkg/token"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	"log"
+
+	// repository
+	aur "github.com/rianekacahya/boilerplate/internal/auth/repository"
+	our "github.com/rianekacahya/boilerplate/internal/oauth/repository"
+
+	// usecase
+	"github.com/rianekacahya/boilerplate/internal/auth"
+	"github.com/rianekacahya/boilerplate/internal/oauth"
 )
 
 var (
-	logger *logrus.Logger
-	cfg    *viper.Viper
-	dbr    *sql.DB
-	dbw    *sql.DB
-	rdb    *redis.Client
-	rsakey *rsa.PrivateKey
-	jwt    *token.Token
+	dependency bootstrap.Dependency
+	repository bootstrap.Repository
+	usecase    bootstrap.Usecase
 )
 
 const (
@@ -29,13 +28,28 @@ const (
 )
 
 func Dependencies() {
-	logger = gologger.New()
-	cfg = goconf.New(cfgPath)
-	dbr = newpostgresread(cfg)
-	dbw = newpostgreswrite(cfg)
-	rdb = newredis(context.Background(), cfg)
-	rsakey = newrsa(cfg)
-	jwt = newjwt(cfg, rsakey)
+	// init dependency
+	config := goconf.New(cfgPath)
+	dependency = bootstrap.Dependency{
+		Cfg:    config,
+		Logger: gologger.New(),
+		Dbr:    newpostgresread(config),
+		Dbw:    newpostgreswrite(config),
+		Rdb:    newredis(context.Background(), config),
+		Jwt:    newjwt(config, newrsa(config)),
+	}
+
+	// init repository
+	repository = bootstrap.Repository{
+		Auth:  aur.NewAuthRepository(dependency),
+		Oauth: our.NewOauthRepository(dependency),
+	}
+
+	// init usecase
+	usecase = bootstrap.Usecase{
+		Auth:  auth.NewAuthUsecase(repository, dependency),
+		Oauth: oauth.NewOauthUsecase(repository, dependency),
+	}
 }
 
 func Execute() {

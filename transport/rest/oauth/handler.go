@@ -3,19 +3,19 @@ package oauth
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
-	"net/http"
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
 	"github.com/rianekacahya/boilerplate/domain/entity"
-	"github.com/rianekacahya/boilerplate/domain/usecase"
 	"github.com/rianekacahya/boilerplate/pkg/goerror"
 	"github.com/rianekacahya/boilerplate/pkg/response"
+	"net/http"
 )
 
 type rest struct {
-	oauthUsecase usecase.Oauth
+	usecase bootstrap.Usecase
 }
 
-func NewHandler(http chi.Router, oauthUsecase usecase.Oauth) {
-	transport := rest{oauthUsecase}
+func NewHandler(http chi.Router, usecase bootstrap.Usecase) {
+	transport := rest{usecase}
 
 	http.Route("/oauth2", func(r chi.Router) {
 		r.Post("/token", transport.token)
@@ -37,7 +37,7 @@ func (t *rest) token(w http.ResponseWriter, r *http.Request) {
 
 	// generate access token
 	if req.GrantType == entity.AccessToken {
-		token, err = t.oauthUsecase.Token(ctx, req)
+		token, err = t.usecase.Oauth.Token(ctx, req)
 		if err != nil {
 			response.Nay(w, r, err)
 			return
@@ -46,7 +46,7 @@ func (t *rest) token(w http.ResponseWriter, r *http.Request) {
 
 	// call refresh token
 	if req.GrantType == entity.RefreshToken {
-		token, err = t.oauthUsecase.RefreshToken(ctx, req)
+		token, err = t.usecase.Oauth.RefreshToken(ctx, req)
 		if err != nil {
 			response.Nay(w, r, err)
 			return

@@ -24,7 +24,7 @@ func (re *oauthRepository) GetClientByClientID(ctx context.Context, clientID str
 	query.WriteString(`WHERE client_id = $1`)
 
 	// execution query
-	row := re.dbread.QueryRowContext(ctx, query.String(), clientID)
+	row := re.dependency.Dbr.QueryRowContext(ctx, query.String(), clientID)
 	err := row.Scan(
 		&result.ID, &result.ClientID, &result.ClientSecret,
 		&result.Channel, &result.Status,

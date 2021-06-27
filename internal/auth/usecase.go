@@ -1,16 +1,17 @@
 package auth
 
-import "github.com/rianekacahya/boilerplate/domain/repository"
+import (
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
+)
 
 type authUsecase struct {
-	authRepository repository.Auth
-	dependency     dependency
+	repository bootstrap.Repository
+	dependency bootstrap.Dependency
 }
 
-type dependency struct{}
-
-func NewAuthUsecase(authRepository repository.Auth) *authUsecase {
+func NewAuthUsecase(repository bootstrap.Repository, dependency bootstrap.Dependency) *authUsecase {
 	return &authUsecase{
-		authRepository: authRepository,
+		repository: repository,
+		dependency: dependency,
 	}
 }

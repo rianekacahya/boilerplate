@@ -7,23 +7,18 @@ import (
 	chim "github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	middleware "github.com/rianekacahya/boilerplate/middleware/rest"
+	"github.com/rianekacahya/boilerplate/pkg/response"
 	"github.com/spf13/cobra"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-	middleware "github.com/rianekacahya/boilerplate/middleware/rest"
-	"github.com/rianekacahya/boilerplate/pkg/response"
 	"syscall"
 	"time"
 
-	auu "github.com/rianekacahya/boilerplate/internal/auth"
-	aur "github.com/rianekacahya/boilerplate/internal/auth/repository"
-	aut "github.com/rianekacahya/boilerplate/transport/rest/auth"
-
-	ouu "github.com/rianekacahya/boilerplate/internal/oauth"
-	our "github.com/rianekacahya/boilerplate/internal/oauth/repository"
-	out "github.com/rianekacahya/boilerplate/transport/rest/oauth"
+	"github.com/rianekacahya/boilerplate/transport/rest/auth"
+	"github.com/rianekacahya/boilerplate/transport/rest/oauth"
 )
 
 var (
@@ -33,14 +28,6 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			// init context
 			ctx, cancel := context.WithCancel(context.Background())
-
-			// init repository
-			authRepo := aur.NewAuthRepository(dbw, dbr)
-			oauthRepo := our.NewOauthRepository(dbw, dbr, rdb)
-
-			// init usecase
-			authUsecase := auu.NewAuthUsecase(authRepo)
-			oauthUsecase := ouu.NewOauthUsecase(oauthRepo, jwt, cfg)
 
 			// init rest server
 			r := chi.NewRouter()
@@ -58,7 +45,7 @@ var (
 				render.SetContentType(render.ContentTypeJSON),
 				middleware.RequestCORS(),
 				middleware.RequestHeader(),
-				middleware.Debug(cfg.GetBool("debug")),
+				middleware.Debug(dependency.Cfg.GetBool("debug")),
 				chim.NoCache,
 				chim.RequestID,
 				chim.RealIP,
@@ -68,22 +55,22 @@ var (
 
 			// init router group
 			r.Route("/v1", func(r chi.Router) {
-				r.Use(middleware.RequestLogger(logger, cfg.GetBool("debug")))
+				r.Use(middleware.RequestLogger(dependency.Logger, dependency.Cfg.GetBool("debug")))
 
 				// bootstrap auth transport
-				aut.NewHandler(r, authUsecase)
+				auth.NewHandler(r, usecase)
 
 				// bootstrap oauth transport
-				out.NewHandler(r, oauthUsecase)
+				oauth.NewHandler(r, usecase)
 			})
 
 			// start chi server with gracefully shutdown
 			srv := &http.Server{
-				Addr:         fmt.Sprintf(":%s", cfg.GetString("rest.port")),
+				Addr:         fmt.Sprintf(":%s", dependency.Cfg.GetString("rest.port")),
 				Handler:      r,
-				ReadTimeout:  time.Duration(cfg.GetInt("rest.read_timeout")) * time.Second,
-				WriteTimeout: time.Duration(cfg.GetInt("rest.write_timeout")) * time.Second,
-				IdleTimeout:  time.Duration(cfg.GetInt("rest.idle_timeout")) * time.Second,
+				ReadTimeout:  time.Duration(dependency.Cfg.GetInt("rest.read_timeout")) * time.Second,
+				WriteTimeout: time.Duration(dependency.Cfg.GetInt("rest.write_timeout")) * time.Second,
+				IdleTimeout:  time.Duration(dependency.Cfg.GetInt("rest.idle_timeout")) * time.Second,
 			}
 
 			idleConnsClosed := make(chan struct{})
@@ -98,13 +85,13 @@ var (
 					log.Fatalf("HTTP server shutdown error: %v", err)
 				}
 
-				log.Printf("Shutdown HTTP server on port : %v", cfg.GetString("rest.port"))
+				log.Printf("Shutdown HTTP server on port : %v", dependency.Cfg.GetString("rest.port"))
 
 				cancel()
 				close(idleConnsClosed)
 			}()
 
-			log.Printf("HTTP server run on port : %v", cfg.GetString("rest.port"))
+			log.Printf("HTTP server run on port : %v", dependency.Cfg.GetString("rest.port"))
 			if err := srv.ListenAndServe(); err != http.ErrServerClosed {
 				log.Fatalf("HTTP server listen and serve error: %v", err)
 			}

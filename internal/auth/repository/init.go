@@ -1,12 +1,13 @@
 package repository
 
-import "database/sql"
+import (
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
+)
 
 type authRepository struct {
-	dbwrite *sql.DB
-	dbread  *sql.DB
+	dependency bootstrap.Dependency
 }
 
-func NewAuthRepository(dbwrite, dbread *sql.DB) *authRepository {
-	return &authRepository{dbwrite, dbread}
+func NewAuthRepository(dependency bootstrap.Dependency) *authRepository {
+	return &authRepository{dependency}
 }

@@ -2,17 +2,17 @@ package auth
 
 import (
 	"github.com/go-chi/chi/v5"
-	"net/http"
-	"github.com/rianekacahya/boilerplate/domain/usecase"
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
 	"github.com/rianekacahya/boilerplate/pkg/response"
+	"net/http"
 )
 
 type rest struct {
-	authUsecase usecase.Auth
+	usecase bootstrap.Usecase
 }
 
-func NewHandler(http chi.Router, authUsecase usecase.Auth) {
-	transport := rest{authUsecase}
+func NewHandler(http chi.Router, usecase bootstrap.Usecase) {
+	transport := rest{usecase}
 
 	http.Route("/auth", func(r chi.Router) {
 		r.Get("/login", transport.login)

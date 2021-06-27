@@ -3,37 +3,28 @@ package oauth
 import (
 	"context"
 	"github.com/google/uuid"
-	"github.com/spf13/viper"
+	"github.com/rianekacahya/boilerplate/domain/bootstrap"
 	"github.com/rianekacahya/boilerplate/domain/entity"
-	"github.com/rianekacahya/boilerplate/domain/repository"
 	"github.com/rianekacahya/boilerplate/pkg/argon2"
 	"github.com/rianekacahya/boilerplate/pkg/goerror"
 	"github.com/rianekacahya/boilerplate/pkg/token"
 )
 
 type oauthUsecase struct {
-	oauthRepository repository.Oauth
-	dependency      dependency
+	repository bootstrap.Repository
+	dependency bootstrap.Dependency
 }
 
-type dependency struct {
-	config *viper.Viper
-	jwt    *token.Token
-}
-
-func NewOauthUsecase(oauthRepository repository.Oauth, jwt *token.Token, config *viper.Viper) *oauthUsecase {
+func NewOauthUsecase(repository bootstrap.Repository, dependency bootstrap.Dependency) *oauthUsecase {
 	return &oauthUsecase{
-		oauthRepository: oauthRepository,
-		dependency: dependency{
-			config: config,
-			jwt:    jwt,
-		},
+		repository: repository,
+		dependency: dependency,
 	}
 }
 
 func (us *oauthUsecase) Token(ctx context.Context, req *entity.RequestToken) (*entity.Token, error) {
 	// get detail client
-	client, err := us.oauthRepository.GetClientByClientID(ctx, req.ClientID)
+	client, err := us.repository.Oauth.GetClientByClientID(ctx, req.ClientID)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +36,7 @@ func (us *oauthUsecase) Token(ctx context.Context, req *entity.RequestToken) (*e
 	}
 
 	// generate token
-	jwt, err := us.dependency.jwt.GenerateToken(client.ClientID, uuid.New(), token.ScopeBasic)
+	jwt, err := us.dependency.Jwt.GenerateToken(client.ClientID, uuid.New(), token.ScopeBasic)
 	if err != nil {
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "failed when generating jwt token")
 	}
@@ -65,18 +56,18 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 	)
 
 	// decode refresh token
-	claim, err := us.dependency.jwt.Decode(req.RefreshToken)
+	claim, err := us.dependency.Jwt.Decode(req.RefreshToken)
 	if err != nil {
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "error when decoding token")
 	}
 
 	// validate refresh token
-	if err := us.dependency.jwt.Validate(claim); err != nil {
+	if err := us.dependency.Jwt.Validate(claim); err != nil {
 		return nil, goerror.Wrap(err, goerror.ErrCodeExpired, "error when validating token")
 	}
 
 	// get detail client
-	client, err := us.oauthRepository.GetClientByClientID(ctx, req.ClientID)
+	client, err := us.repository.Oauth.GetClientByClientID(ctx, req.ClientID)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +79,7 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 	}
 
 	// check session exist in redis
-	exist, err := us.oauthRepository.CheckSessionExist(ctx, claim.Subject)
+	exist, err := us.repository.Oauth.CheckSessionExist(ctx, claim.Subject)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +96,7 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 		}
 
 		// get session
-		session, err := us.oauthRepository.GetSession(ctx, claim.Subject)
+		session, err := us.repository.Oauth.GetSession(ctx, claim.Subject)
 		if err != nil {
 			return nil, err
 		}
@@ -117,7 +108,7 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 	}
 
 	// generate token
-	jwt, err := us.dependency.jwt.GenerateToken(client.ClientID, sessionID, scope)
+	jwt, err := us.dependency.Jwt.GenerateToken(client.ClientID, sessionID, scope)
 	if err != nil {
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "failed when generating jwt token")
 	}

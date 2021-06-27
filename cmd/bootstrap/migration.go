@@ -13,7 +13,7 @@ var (
 		Use:   "migrate:up",
 		Short: "Execute Database Migration Up",
 		Run: func(cmd *cobra.Command, args []string) {
-			m, err := migrate.New("file://files/migration", cfg.GetString("postgres.write.dsn"))
+			m, err := migrate.New("file://files/migration", dependency.Cfg.GetString("postgres.write.dsn"))
 			if err != nil {
 				log.Fatalf("got an error while initialize database migrations, error: %s", err)
 			}
@@ -28,7 +28,7 @@ var (
 		Use:   "migrate:down",
 		Short: "Execute Database Migration Down",
 		Run: func(cmd *cobra.Command, args []string) {
-			m, err := migrate.New("file://files/migration", cfg.GetString("postgres.write.dsn"))
+			m, err := migrate.New("file://files/migration", dependency.Cfg.GetString("postgres.write.dsn"))
 			if err != nil {
 				log.Fatal(err)
 			}

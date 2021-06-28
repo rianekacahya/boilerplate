@@ -52,7 +52,7 @@ var restmapper = map[string]int{
 	ErrCodeFormatting:       http.StatusBadRequest,
 	ErrCodeDataRead:         http.StatusBadRequest,
 	ErrCodeDataWrite:        http.StatusBadRequest,
-	ErrCodeNoResult:         http.StatusNoContent,
+	ErrCodeNoResult:         http.StatusBadRequest,
 	ErrCodeUnauthorized:     http.StatusUnauthorized,
 	ErrCodeForbidden:        http.StatusForbidden,
 	ErrCodeExpired:          http.StatusForbidden,

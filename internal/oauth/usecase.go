@@ -26,18 +26,21 @@ func (us *oauthUsecase) Token(ctx context.Context, req *entity.RequestToken) (*e
 	// get detail client
 	client, err := us.repository.Oauth.GetClientByClientID(ctx, req.ClientID)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, err
 	}
 
 	// check client secret correctness
 	compare, _ := argon2.Decode([]byte(client.ClientSecret))
 	if ok, _ := compare.Verify([]byte(req.ClientSecret)); !ok {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.New(goerror.ErrCodeUnauthorized, "client id and client secret not match")
 	}
 
 	// generate token
 	jwt, err := us.dependency.Jwt.GenerateToken(client.ClientID, uuid.New(), token.ScopeBasic)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "failed when generating jwt token")
 	}
 
@@ -58,29 +61,34 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 	// decode refresh token
 	claim, err := us.dependency.Jwt.Decode(req.RefreshToken)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "error when decoding token")
 	}
 
 	// validate refresh token
 	if err := us.dependency.Jwt.Validate(claim); err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.Wrap(err, goerror.ErrCodeExpired, "error when validating token")
 	}
 
 	// get detail client
 	client, err := us.repository.Oauth.GetClientByClientID(ctx, req.ClientID)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, err
 	}
 
 	// check client secret correctness
 	compare, _ := argon2.Decode([]byte(client.ClientSecret))
 	if ok, _ := compare.Verify([]byte(req.ClientSecret)); !ok {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.New(goerror.ErrCodeUnauthorized, "client id and client secret not match")
 	}
 
 	// check session exist in redis
 	exist, err := us.repository.Oauth.CheckSessionExist(ctx, claim.Subject)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, err
 	}
 
@@ -92,12 +100,14 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 		// parse value session ID
 		sessionID, err = uuid.Parse(claim.Subject)
 		if err != nil {
+			us.dependency.Logger.Error(err)
 			return nil, goerror.Wrap(err, goerror.ErrCodeFormatting, "failed when parse session id")
 		}
 
 		// get session
 		session, err := us.repository.Oauth.GetSession(ctx, claim.Subject)
 		if err != nil {
+			us.dependency.Logger.Error(err)
 			return nil, err
 		}
 
@@ -110,6 +120,7 @@ func (us *oauthUsecase) RefreshToken(ctx context.Context, req *entity.RequestTok
 	// generate token
 	jwt, err := us.dependency.Jwt.GenerateToken(client.ClientID, sessionID, scope)
 	if err != nil {
+		us.dependency.Logger.Error(err)
 		return nil, goerror.Wrap(err, goerror.ErrCodeUnexpected, "failed when generating jwt token")
 	}
 

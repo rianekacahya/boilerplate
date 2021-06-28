@@ -34,9 +34,11 @@ func (re *oauthRepository) GetClientByClientID(ctx context.Context, clientID str
 
 	if err != nil {
 		if err == sql.ErrNoRows {
+			re.dependency.Logger.Error(err)
 			return nil, goerror.Wrap(err, goerror.ErrCodeNoResult, "data client not found")
 		}
 
+		re.dependency.Logger.Error(err)
 		return nil, goerror.Wrap(err, goerror.ErrCodeDataRead, "error when get data client")
 	}
 

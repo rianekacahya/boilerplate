@@ -3,9 +3,9 @@ package response
 import (
 	"github.com/go-chi/render"
 	"github.com/go-ozzo/ozzo-validation/v4"
-	"net/http"
 	"github.com/rianekacahya/boilerplate/middleware/rest"
 	"github.com/rianekacahya/boilerplate/pkg/goerror"
+	"net/http"
 )
 
 type SuccessResponse struct {
